@@ -2,6 +2,7 @@ package main
 
 import (
 	"encoding/json"
+	"html/template"
 	"log"
 	"net/http"
 )
@@ -59,6 +60,20 @@ func main()  {
 	mux := http.NewServeMux()
 
 	mux.HandleFunc("/user/login", userLogin)
+
+	// 1.startファイルのディレクトリアクセス許可
+	mux.Handle("/asset/",http.FileServer(http.Dir(".")))
+
+	//user/login.shtml
+	mux.HandleFunc("/user/login.shtml", func(w http.ResponseWriter, r *http.Request) {
+		// 解析
+		tpl,err := template.ParseFiles("view/user/login.html")
+		if err != nil {
+			//printして終わり
+			log.Fatal(err.Error())
+		}
+		tpl.ExecuteTemplate(w, "/user/login.shtml", nil)
+	})
 
 	server := http.Server{
 		Addr:"127.0.0.1:8080",
