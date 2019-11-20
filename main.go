@@ -2,11 +2,35 @@ package main
 
 import (
 	"encoding/json"
+	"fmt"
+	_ "github.com/go-sql-driver/mysql"
+	"github.com/go-xorm/xorm"
 	"html/template"
 	"log"
 	"net/http"
 )
 //curl http://127.0.0.1:8080/user/login -X POST -d "mobile=18600000000&passwd=123456"
+
+var DbEngin *xorm.Engine
+
+func init()  {
+    drivename := "mysql"
+    DsName := "root:root@(127.0.0.01:3306)/chat?charset=utf8" //ユーザーネーム:パスワード@(port)/dbネーム?charset=utf8
+	DbEngin, err := xorm.NewEngine(drivename,DsName)
+	if err != nil{
+		log.Fatal(err.Error())
+	}
+	// 操作中にsql表示するかどうか
+	DbEngin.ShowSQL(true)
+	// データーベースのリンク数
+	DbEngin.SetMaxOpenConns(2)
+
+	//自動でテーブル作る
+	//DbEngin.Sync2(new(User))
+
+	fmt.Println("init data base ok")
+}
+
 
 func userLogin(w http.ResponseWriter, r *http.Request)  {
 	r.ParseForm()
