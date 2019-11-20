@@ -55,6 +55,20 @@ func Resp(w http.ResponseWriter, code int, data interface{}, msg string)  {
 	}
 }
 
+func RegisterView(mux *http.ServeMux) {
+	tpl,err := template.ParseGlob("view/**/*")
+	//エラー出たら実行停止
+	if err != nil {
+		//printして終わり
+		log.Fatal(err.Error())
+	}
+	for _,v := range tpl.Templates(){
+	   tplname := v.Name()
+		mux.HandleFunc(tplname, func(writer http.ResponseWriter, request *http.Request) {
+          tpl.ExecuteTemplate(writer, tplname, nil)
+	   })
+	}
+}
 
 func main()  {
 	mux := http.NewServeMux()
@@ -64,17 +78,15 @@ func main()  {
 	// 1.startファイルのディレクトリアクセス許可
 	mux.Handle("/asset/",http.FileServer(http.Dir(".")))
 
-	//user/login.shtml
-	mux.HandleFunc("/user/login.shtml", func(w http.ResponseWriter, r *http.Request) {
-		// 解析
-		tpl,err := template.ParseFiles("view/user/login.html")
-		if err != nil {
-			//printして終わり
-			log.Fatal(err.Error())
-		}
-		tpl.ExecuteTemplate(w, "/user/login.shtml", nil)
-	})
+	//mux.HandleFunc("/user/login.shtml", func(writer http.ResponseWriter, request *http.Request) {
+	//	tpl, err := template.ParseFiles("view/user/login.html")
+	//	if err!= nil{
+	//		log.Fatal(err.Error())
+	//	}
+	//	tpl.ExecuteTemplate(writer,"/user/login.shtml","")
+	//})
 
+	RegisterView(mux)
 	server := http.Server{
 		Addr:"127.0.0.1:8080",
 		Handler:mux,
