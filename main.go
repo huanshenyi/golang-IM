@@ -12,23 +12,25 @@ import (
 	"net/http"
 )
 //curl http://127.0.0.1:8080/user/login -X POST -d "mobile=18600000000&passwd=123456"
+//curl http://127.0.0.1:8080/user/login -X POST -d "mobile=18600000000&passwd=123456"
 
 // ログイン
 func userLogin(w http.ResponseWriter, r *http.Request)  {
 	r.ParseForm()
-	moblie := r.PostForm.Get("mobile")
-	passwd := r.PostForm.Get("passwd")
+	//
+	mobile := r.PostForm.Get("mobile")
+	//
+	plainpwd := r.PostForm.Get("passwd")
 	loginok := false
-	if (moblie == "18600000000" && passwd=="123456"){
+	user,err := userService.Login(mobile, plainpwd)
+	if err != nil{
+	}else {
 		loginok = true
 	}
 	if (loginok){
-		data := make(map[string]interface{})
-		data["id"] = 1
-		data["token"] = "test"
-		Resp(w, 0, data, "")
+		Resp(w, 0, user, "ログインしました")
 	}else {
-		Resp(w, -1, nil, "パスワード違う")
+		Resp(w, -1, nil, "パスワードかアカウント違う")
 	}
 }
 

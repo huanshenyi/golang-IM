@@ -56,5 +56,23 @@ func (s *UserService)Register(
 
 //ログイン
 func (s *UserService) Login (mobile,plainpwd string) (user model.User, err error) {
-	return user, nil
+	// モバイル存在するか調べる
+	tmp := model.User{}
+	_, err = DbEngin.Where("mobile=?",mobile).Get(&tmp)
+	if err != nil{
+		return tmp, err
+	}
+	//モバイル存在しない場合
+	if tmp.Id < 0{
+		return tmp,errors.New("アカウント存在しません")
+	}
+	//存在する場合パスワード合ってるかどうか確認する
+	res := util.ValidatePasswd(plainpwd, tmp.Salt,tmp.Passwd)
+	if res != true {
+		//パスワード合ってないばあ
+		return tmp,errors.New("パスワードかアカウント合ってません")
+	}
+	//合ってる場合、userを返す
+	return tmp, nil
+
 }
