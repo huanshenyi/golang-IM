@@ -11,7 +11,7 @@ const (
 )
 
 type User struct {
-	Id         int64     `xorm:"pk autoincr bigint(64)" form:"id" json:"id"`
+	Id         int64     `xorm:"pk autoincr int(64)" form:"id" json:"id"`
 	Mobile   string 		`xorm:"varchar(20)" form:"mobile" json:"mobile"` //携帯番号
 	Passwd       string	`xorm:"varchar(40)" form:"passwd" json:"-"`   // ユーザーパスワード(plainpwd+salt),MD5
 	Avatar	   string 		`xorm:"varchar(150)" form:"avatar" json:"avatar"` //logo

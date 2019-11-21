@@ -4,34 +4,16 @@ import (
 	"encoding/json"
 	"fmt"
 	_ "github.com/go-sql-driver/mysql"
-	"github.com/go-xorm/xorm"
+	"hello/model"
+	"hello/service"
 	"html/template"
 	"log"
+	"math/rand"
 	"net/http"
 )
 //curl http://127.0.0.1:8080/user/login -X POST -d "mobile=18600000000&passwd=123456"
 
-var DbEngin *xorm.Engine
-
-func init()  {
-    drivename := "mysql"
-    DsName := "root:root@(127.0.0.01:3306)/chat?charset=utf8" //ユーザーネーム:パスワード@(port)/dbネーム?charset=utf8
-	DbEngin, err := xorm.NewEngine(drivename,DsName)
-	if err != nil{
-		log.Fatal(err.Error())
-	}
-	// 操作中にsql表示するかどうか
-	DbEngin.ShowSQL(true)
-	// データーベースのリンク数
-	DbEngin.SetMaxOpenConns(2)
-
-	//自動でテーブル作る
-	//DbEngin.Sync2(new(User))
-
-	fmt.Println("init data base ok")
-}
-
-
+// ログイン
 func userLogin(w http.ResponseWriter, r *http.Request)  {
 	r.ParseForm()
 	moblie := r.PostForm.Get("mobile")
@@ -47,6 +29,27 @@ func userLogin(w http.ResponseWriter, r *http.Request)  {
 		Resp(w, 0, data, "")
 	}else {
 		Resp(w, -1, nil, "パスワード違う")
+	}
+}
+
+var userService service.UserService
+
+// 新規アカウント
+func userRegister(w http.ResponseWriter, r *http.Request)  {
+	r.ParseForm()
+	//
+	mobile := r.PostForm.Get("mobile")
+	//
+	plainpwd := r.PostForm.Get("passwd")
+	//
+	nickname := fmt.Sprintf("user%06d",rand.Int31())
+	avatar := ""
+	sex := model.SEX_UNKNOW
+	user,err := userService.Register(mobile,plainpwd,nickname,avatar,sex)
+	if err!= nil {
+		Resp(w,-1, nil, err.Error())
+	}else {
+		Resp(w,0, user, err.Error())
 	}
 }
 
@@ -98,6 +101,7 @@ func main()  {
 	mux := http.NewServeMux()
 
 	mux.HandleFunc("/user/login", userLogin)
+	mux.HandleFunc("/user/register", userRegister)
 
 	// 1.startファイルのディレクトリアクセス許可
 	mux.Handle("/asset/",http.FileServer(http.Dir(".")))
