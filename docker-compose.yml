@@ -31,3 +31,16 @@ services:
       - PMA_PASSWORD=root
     ports:
       - 3000:80
+
+  #Nginx
+  nginx:
+    container_name: go-front
+    hostname: go-front
+    image: nginx
+    ports:
+      - 10080:80
+    volumes:
+      - ${PWD}/view:/usr/share/nginx/html
+    environment:
+      - TZ=Asia/Tokyo
+      - NGINX_PORT=80
