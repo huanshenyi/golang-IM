@@ -63,7 +63,7 @@ func (s *UserService) Login (mobile,plainpwd string) (user model.User, err error
 		return tmp, err
 	}
 	//モバイル存在しない場合
-	if tmp.Id < 0{
+	if tmp.Id == 0{
 		return tmp,errors.New("アカウント存在しません")
 	}
 	//存在する場合パスワード合ってるかどうか確認する
@@ -72,7 +72,12 @@ func (s *UserService) Login (mobile,plainpwd string) (user model.User, err error
 		//パスワード合ってないばあ
 		return tmp,errors.New("パスワードかアカウント合ってません")
 	}
-	//合ってる場合、userを返す
+	//合ってる場合、userを返す,tokenをリセット,update時間を更新
+	str := fmt.Sprintf("%d",time.Now().Unix())
+	token := util.MD5Encode(str)
+	tmp.Token = token
+	tmp.Updated_at = time.Now()
+	DbEngin.ID(tmp.Id).Cols("token, updated_at").Update(&tmp)
 	return tmp, nil
 
 }

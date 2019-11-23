@@ -85,3 +85,6 @@ func MakePasswd(plainpwd,salt string) string{
 }
 
 ```
+```text
+docker-machine ip default
+```

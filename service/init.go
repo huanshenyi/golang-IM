@@ -12,7 +12,7 @@ var DbEngin *xorm.Engine
 
 func init()  {
 	drivename := "mysql"
-	DsName := "root:root@(127.0.0.01:3306)/chat?charset=utf8" //ユーザーネーム:パスワード@(port)/dbネーム?charset=utf8
+	DsName := "root:root@(192.168.99.100:3306)/chat?charset=utf8" //ユーザーネーム:パスワード@(port)/dbネーム?charset=utf8
 	err := errors.New("")
 	DbEngin, err = xorm.NewEngine(drivename,DsName)
 	if err != nil && err.Error() != ""{
