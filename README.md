@@ -88,3 +88,31 @@ func MakePasswd(plainpwd,salt string) string{
 ```text
 docker-machine ip default
 ```
+
+# ユーザー追加/ グループ追加
+```text
+/contact/addfriend フレンド追加、パラメータ userid,dstid
+
+ユーザー10000追加10086の場合,contactテーブルに二つのデータ追加
+//ownerid=10000,distobj=10086
+//ownerid=10086,dstobj=10000
+
+/contact/loadfriend フレンド表示,パラメータuserid
+
+/contact/createcommunity グループ追加，アイコンpic,名前name,
+/contact/loadcommunity グループ全部表示,パラメータuserid
+
+/contact/joincommunity グループに参加、パラメータuserid,dstid
+```
+流れ
+
+# 追加/表示友達, 追加/表示グループ
+```text
+code fence: cgo /contact/addfri...
+```
+
+# テーブル同期
+
+```text
+DbEngin.Sync2(new(model.Contact), new(model.Community))
+```

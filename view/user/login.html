@@ -56,7 +56,7 @@
                     if(res.code!=0){
                         mui.toast(res.msg)
                     }else{
-                        var url = `/chat/index.shtml?id${res.data.id}&token=${res.data.token}`;
+                        var url = `/chat/index.shtml?id=${res.data.id}&token=${res.data.token}`;
                         mui.toast("ログインしました");
                         location.href=url;
                     }

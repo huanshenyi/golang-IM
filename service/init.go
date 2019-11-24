@@ -24,7 +24,7 @@ func init()  {
 	DbEngin.SetMaxOpenConns(2)
 
 	//自動でテーブル作る
-	DbEngin.Sync2(new(model.User))
+	DbEngin.Sync2(new(model.User),new(model.Contact),new(model.Community))
 
 	fmt.Println("init data base ok")
 }

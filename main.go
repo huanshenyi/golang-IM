@@ -29,6 +29,11 @@ func main()  {
 
 	mux.HandleFunc("/user/login", controller.UserLogin)
 	mux.HandleFunc("/user/register", controller.UserRegister)
+	mux.HandleFunc("/contact/loadcommunity", controller.LoadCommunity)
+	mux.HandleFunc("/contact/loadfriend", controller.LoadFriend)
+	mux.HandleFunc("/contact/joincommunity", controller.JoinCommunity)
+	//http.HandleFunc("/contact/addfriend", ctrl.Addfriend)
+	mux.HandleFunc("/contact/addfriend", controller.Addfriend)
 
 	// 1.startファイルのディレクトリアクセス許可
 	mux.Handle("/asset/",http.FileServer(http.Dir(".")))
