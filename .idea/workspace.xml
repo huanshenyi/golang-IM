@@ -2,20 +2,13 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="31b3c635-20b9-475d-90e9-da28ee169bc2" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/args/contact.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/args/pagearg.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/controller/contact.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/model/community.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/model/contact.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/service/contact.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/util/parse.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/controller/chat.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/go.mod" beforeDir="false" afterPath="$PROJECT_DIR$/go.mod" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/go.sum" beforeDir="false" afterPath="$PROJECT_DIR$/go.sum" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/main.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/service/init.go" beforeDir="false" afterPath="$PROJECT_DIR$/service/init.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/util/resp.go" beforeDir="false" afterPath="$PROJECT_DIR$/util/resp.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/service/user.go" beforeDir="false" afterPath="$PROJECT_DIR$/service/user.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/view/chat/foot.html" beforeDir="false" afterPath="$PROJECT_DIR$/view/chat/foot.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/view/user/login.html" beforeDir="false" afterPath="$PROJECT_DIR$/view/user/login.html" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />

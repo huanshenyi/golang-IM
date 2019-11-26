@@ -287,12 +287,24 @@
 
                     },
                     initwebsocket:function(){
+                        var id = that._getQueryString("id");
+                        var url="ws://"+location.host+"/chat?id="+userId()+"&token=" +util.parseQuery("token");
+                        this.webSocket=new WebSocket(url);
+
+                        //消息处理
                         this.webSocket.onmessage = function(evt){
-                            this.onmessage(JSON.parse(evt.data));
+                            //{"data":"}",...}
+                            if(evt.data.indexOf("}")>-1){
+                                this.onmessage(JSON.parse(evt.data));
+                            }else{
+                                console.log("recv<=="+evt.data)
+                            }
                         }.bind(this)
+                        //关闭回调
                         this.webSocket.onclose=function (evt) {
                             console.log(evt.data)
                         }
+                        //出错回调
                         this.webSocket.onerror=function (evt) {
                             console.log(evt.data)
                         }

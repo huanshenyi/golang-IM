@@ -34,6 +34,7 @@ func main()  {
 	mux.HandleFunc("/contact/joincommunity", controller.JoinCommunity)
 	//http.HandleFunc("/contact/addfriend", ctrl.Addfriend)
 	mux.HandleFunc("/contact/addfriend", controller.Addfriend)
+	mux.HandleFunc("/chat", controller.Chat)
 
 	// 1.startファイルのディレクトリアクセス許可
 	mux.Handle("/asset/",http.FileServer(http.Dir(".")))

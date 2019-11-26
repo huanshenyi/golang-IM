@@ -79,5 +79,11 @@ func (s *UserService) Login (mobile,plainpwd string) (user model.User, err error
 	tmp.Updated_at = time.Now()
 	DbEngin.ID(tmp.Id).Cols("token, updated_at").Update(&tmp)
 	return tmp, nil
+}
 
+// userを探す
+func (s *UserService)Find(userId int64)(user model.User) {
+	tmp := model.User{}
+	DbEngin.ID(userId).Get(&tmp)
+	return tmp
 }
